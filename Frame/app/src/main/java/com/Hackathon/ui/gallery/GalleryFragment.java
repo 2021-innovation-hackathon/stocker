@@ -11,10 +11,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,9 +23,11 @@ import com.Hackathon.R;
 import com.Hackathon.StockBar;
 import com.Hackathon.databinding.FragmentGalleryBinding;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import org.jsoup.Jsoup;
@@ -40,10 +40,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class GalleryFragment extends Fragment implements View.OnClickListener {
     // 입력받을 것
     private String companyCode;
+    private String companyName;
     private int maxPage = 1;
 
     // 리사이클러 뷰
@@ -54,7 +56,6 @@ public class GalleryFragment extends Fragment implements View.OnClickListener {
     // 라인차트
     private LineChart chart;
     private ArrayList<StockBar> stockItems;
-
 
     private GalleryViewModel galleryViewModel;
     private FragmentGalleryBinding binding;
@@ -94,6 +95,12 @@ public class GalleryFragment extends Fragment implements View.OnClickListener {
                     Integer page = 1;
                     int i = 0;
                     Log.d("테스트 확인 회사 번호 ", companyCode);
+                    
+                    // 회사명 들고오기
+                    try {
+                    } catch(Exception e) {
+                        e.printStackTrace();
+                    }
 
                     while(page <= maxPage) {
                         String url = "https://finance.naver.com/item/sise_day.nhn?code="
@@ -102,13 +109,30 @@ public class GalleryFragment extends Fragment implements View.OnClickListener {
 
                         Document sourceCode = null;
                         stockItems = new ArrayList<StockBar>();
+
+
                         try {
                             // 그 다음에 HTML 소스 페이지를 들고 온다.
                             sourceCode = Jsoup.connect(url).get();
 
-                            Elements newsRowElements = sourceCode.select("table.type2 tr:gt(0)");
+                            Elements stockRowElements = sourceCode.select("table.type2 tr:gt(0)");
 
-                            for(Element row : newsRowElements) {
+                            if(stockRowElements.size() == 0) {
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                                        builder.setTitle("관련 데이터가 없습니다.");
+                                        builder.setNegativeButton("돌아가기", null);
+                                        builder.create().show();
+                                    }
+                                });
+                                return;
+                            }
+
+                            final ArrayList<String> xLabel = new ArrayList<>();
+
+                            for(Element row : stockRowElements) {
                                 Elements cellList = row.select("td");
 
                                 String strdate = cellList.select(".tah.p10.gray03").text();
@@ -118,12 +142,15 @@ public class GalleryFragment extends Fragment implements View.OnClickListener {
                                 }
 
                                 Log.d("strDate ", strdate);
-                                String strcurrentStock = cellList.select(".tah.p11").text().split(" ")[0].replace(",", "");
+                                String strcurrentStock = cellList.select(".tah.p11").text()
+                                        .split(" ")[0].replace(",", "");
 
                                 Date date = convertStringToDate(strdate);
+                                System.out.println("date long : " + date.getTime());
                                 float currentStock = Float.parseFloat(strcurrentStock);
 
                                 values.add(new Entry(i++, currentStock));
+                                xLabel.add(Long.toString(date.getTime()));
                             }
 
                             LineDataSet set1;
@@ -138,9 +165,36 @@ public class GalleryFragment extends Fragment implements View.OnClickListener {
                             // black lines and points
                             set1.setColor(Color.BLACK);
                             set1.setCircleColor(Color.BLACK);
-
+                            
+                            // 회사 명 가져오기
+                            String url2 = "https://finance.naver.com/item/sise.nhn?code=" + companyCode;
+                            Document title = Jsoup.connect(url2).get();
+                            companyName = title.select(".wrap_company").get(0).text().split(" ")[0];
+                            
                             // set data
                             chart.setData(data);
+                            chart.setVisibleXRangeMaximum(6);
+                            chart.getDescription().setText(companyName + "의 주식");
+                            chart.moveViewToX(0);
+
+                            XAxis xAxis = chart.getXAxis();
+                            xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+                            xAxis.setValueFormatter(
+                                    new IndexAxisValueFormatter() {
+                                        @Override
+                                        public String getFormattedValue(float value) {
+                                            // long emissionsMilliSince1970Time = TimeUnit.DAYS.toMillis(Long.parseLong(xLabel.get((int)value)));
+                                            long emissionsMilliSince1970Time = Long.parseLong(xLabel.get((int)value));
+
+                                            // Show time in local version
+                                            Date timeMilliseconds = new Date(emissionsMilliSince1970Time);
+                                            SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd");
+                                            System.out.println("dateTimeFormat.format(timeMilliseconds)" + dateTimeFormat.format(timeMilliseconds));
+
+                                            return dateTimeFormat.format(timeMilliseconds);
+                                        }
+                                    }
+                            );
 
                             page++;
                         } catch (IOException e) {
@@ -276,7 +330,7 @@ public class GalleryFragment extends Fragment implements View.OnClickListener {
                 new ViewModelProvider(this).get(GalleryViewModel.class);
 
         binding = FragmentGalleryBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        View root = binding.getRoot ();
 
         return root;
     }
