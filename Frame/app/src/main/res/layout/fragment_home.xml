@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f1f3f5"
     android:gravity="center|top"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".ui.home.HomeFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,17 +20,17 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:text="  PREV  "
-            android:textSize="15dp" />
+            android:textSize="15sp"/>
 
         <TextView
-            android:id="@+id/tv_current_month"
+            android:id="@+id/monthYearTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
             android:textColor="@color/black"
             android:text="2021  08"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/tv_next_month"
@@ -36,7 +38,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:text="  NEXT  "
-            android:textSize="15dp" />
+            android:textSize="15sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -59,7 +61,7 @@
                 android:gravity="center"
                 android:text="S"
                 android:textColor="#969a9b"
-                android:textSize="10dp"
+                android:textSize="10sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -69,7 +71,7 @@
                 android:gravity="center"
                 android:text="M"
                 android:textColor="#969a9b"
-                android:textSize="10dp"
+                android:textSize="10sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -79,7 +81,7 @@
                 android:gravity="center"
                 android:text="T"
                 android:textColor="#969a9b"
-                android:textSize="10dp"
+                android:textSize="10sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -89,7 +91,7 @@
                 android:gravity="center"
                 android:text="W"
                 android:textColor="#969a9b"
-                android:textSize="10dp"
+                android:textSize="10sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -99,7 +101,7 @@
                 android:gravity="center"
                 android:text="T"
                 android:textColor="#969a9b"
-                android:textSize="10dp"
+                android:textSize="10sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -109,7 +111,7 @@
                 android:gravity="center"
                 android:text="F"
                 android:textColor="#969a9b"
-                android:textSize="10dp"
+                android:textSize="10sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -119,76 +121,20 @@
                 android:gravity="center"
                 android:text="S"
                 android:textColor="#969a9b"
-                android:textSize="10dp"
+                android:textSize="10sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/rv_schedule"
+            android:id="@+id/calendarRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="400dp"
-            tools:context=".ui.home.CalendarActivity">
+            tools:context=".activity.CalendarActivity">
 
         </androidx.recyclerview.widget.RecyclerView>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_weight="1">
-                <TextView
-                    android:id="@+id/max_up"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textColor="@color/red"
-                    android:layout_weight="1"
-                    android:textAlignment="center"
-                    android:text="최대 상승 종목"
-                    android:textSize="20sp" />
-                <TextView
-                    android:id="@+id/max_up_stock"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textColor="@color/red"
-                    android:layout_weight="1"
-                    android:textAlignment="center"
-                    android:text="카카오 0.0%"
-                    android:textSize="15sp" />
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_weight="1">
-                <TextView
-                    android:id="@+id/max_down"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textColor="@color/blue"
-                    android:layout_weight="1"
-                    android:textAlignment="center"
-                    android:text="최대 하락 종목"
-                    android:textSize="20sp" />
-                <TextView
-                    android:id="@+id/max_down_stock"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textColor="@color/blue"
-                    android:layout_weight="1"
-                    android:textAlignment="center"
-                    android:text="네이버 0.0%"
-                    android:textSize="15sp" />
-
-            </LinearLayout>
-        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
