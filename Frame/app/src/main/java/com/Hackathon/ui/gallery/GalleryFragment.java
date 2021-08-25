@@ -92,6 +92,7 @@ public class GalleryFragment extends Fragment implements View.OnClickListener {
                 @Override
                 public void run() {
                     Integer page = 1;
+                    int i = 0;
                     Log.d("테스트 확인 회사 번호 ", companyCode);
 
                     while(page <= maxPage) {
@@ -111,13 +112,18 @@ public class GalleryFragment extends Fragment implements View.OnClickListener {
                                 Elements cellList = row.select("td");
 
                                 String strdate = cellList.select(".tah.p10.gray03").text();
+
+                                if(strdate == "") {
+                                    continue;
+                                }
+
                                 Log.d("strDate ", strdate);
-                                String strcurrentStock = cellList.select(".tah.p11").text();
+                                String strcurrentStock = cellList.select(".tah.p11").text().split(" ")[0].replace(",", "");
 
                                 Date date = convertStringToDate(strdate);
                                 float currentStock = Float.parseFloat(strcurrentStock);
 
-                                values.add(new Entry(date.getTime(), currentStock));
+                                values.add(new Entry(i++, currentStock));
                             }
 
                             LineDataSet set1;
