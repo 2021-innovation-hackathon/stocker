@@ -130,6 +130,14 @@ public class GalleryFragment extends Fragment implements View.OnClickListener  {
         btn.setOnClickListener(this);
         btn.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
 
+        TextView textView = (TextView)getActivity().findViewById(R.id.txtNewsId);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // 여기서 일기 데이터를 조회
+            }
+        });
+
         EditText et = (EditText)getActivity().findViewById(R.id.editNewsId);
         et.setText("");
 
