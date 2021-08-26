@@ -3,6 +3,9 @@ package com.Hackathon;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Switch;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -18,12 +21,17 @@ import com.Hackathon.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
+    private TextView tv;
+    private Switch aSwitch;
+    private Button Bt;
+
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
