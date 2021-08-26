@@ -42,7 +42,6 @@ public abstract class CompanyDataDB extends RoomDatabase {
 
                     cd.companyName   = entry.getKey();
                     cd.companyID =  entry.getValue();
-                    System.out.println(cd.companyName);
 
                     instance.companyDao().insertAll(cd);
                 }

@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.Hackathon.DiaryItem;
+import com.Hackathon.DiaryItemDB;
 import com.Hackathon.R;
 import com.Hackathon.databinding.FragmentSlideshowBinding;
 import com.github.mikephil.charting.charts.PieChart;
@@ -20,9 +22,13 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import jxl.read.biff.BiffException;
 
 public class  SlideshowFragment extends Fragment {
 
@@ -30,28 +36,47 @@ public class  SlideshowFragment extends Fragment {
     private FragmentSlideshowBinding binding;
 
     PieChart pieChart;
+    List<DiaryItem> list = null;
 
     private void showPieChart(){
         ArrayList<PieEntry> pieEntries = new ArrayList<>();
         String label = "type";
 
+        new Thread(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            list = DiaryItemDB.getInstance(getContext()).diaryItemDao().getAll();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (BiffException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+        ).start();
+
         //initializing data
         Map<String, Integer> typeAmountMap = new HashMap<>();
-        typeAmountMap.put("Toys",200);
-        typeAmountMap.put("Snacks",230);
-        typeAmountMap.put("Clothes",100);
-        typeAmountMap.put("Stationary",500);
-        typeAmountMap.put("Phone",50);
-
         //initializing colors for the entries
         ArrayList<Integer> colors = new ArrayList<>();
-        colors.add(Color.parseColor("#304567"));
-        colors.add(Color.parseColor("#309967"));
-        colors.add(Color.parseColor("#476567"));
-        colors.add(Color.parseColor("#890567"));
-        colors.add(Color.parseColor("#a35567"));
-        colors.add(Color.parseColor("#ff5f67"));
-        colors.add(Color.parseColor("#3ca567"));
+
+        if(list != null) {
+            System.out.println("null이 아님");
+
+            for(DiaryItem d : list) {
+                Integer i = typeAmountMap.get(d.stockName);
+                if(i != null) {
+                    typeAmountMap.replace(d.categoryName, d.price * d.quantity + i);
+                } else {
+                    typeAmountMap.put(d.categoryName, d.price * d.quantity);
+                    colors.add(Color.parseColor(d.categoryColor));
+                }
+            }
+        } else {
+            System.out.println("왜 null");
+        }
 
         //input data and fit data into pie chart entry
         for(String type: typeAmountMap.keySet()){

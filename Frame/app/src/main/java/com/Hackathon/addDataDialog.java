@@ -79,6 +79,8 @@ public class addDataDialog extends Dialog implements AdapterView.OnItemSelectedL
             d.categoryName = r4.getText().toString();
             d.categoryColor = r5.getText().toString();
             d.date = DateSingleton.dateValue;
+            System.out.println(d.date);
+            System.out.println(DateSingleton.dateValue);
 
             Thread t = new Thread(
                 new Runnable() {
@@ -95,6 +97,11 @@ public class addDataDialog extends Dialog implements AdapterView.OnItemSelectedL
                 }
             );
             t.start();
+            try {
+                t.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
             //카테고리에 넣기
             dismiss();

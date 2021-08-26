@@ -1,6 +1,7 @@
 package com.Hackathon.ui.gallery;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ import com.Hackathon.NewsItem;
 import com.Hackathon.R;
 import com.Hackathon.StockBar;
 import com.Hackathon.databinding.FragmentGalleryBinding;
+import com.Hackathon.ui.home.Home_addMemo;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -60,6 +62,7 @@ public class GalleryFragment extends Fragment implements View.OnClickListener  {
     // 입력받을 것
     private String companyCode;
     private String companyName;
+    private String clickedDate = null ;
     private int maxPage = 1;
 
     // 리사이클러 뷰
@@ -134,12 +137,36 @@ public class GalleryFragment extends Fragment implements View.OnClickListener  {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // 여기서 일기 데이터를 조회
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("아직 만드는 중이에요..");
-                builder.setNegativeButton("돌아가기", null);
-                builder.create().show();
-                return;
+                if(clickedDate == null || clickedDate.equals("")) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setTitle("선택된 날짜가 없습니다.");
+                    builder.setNegativeButton("돌아가기", null);
+                    builder.create().show();
+                    return;
+                } else {
+                    Intent intent = new Intent(getContext(), Home_addMemo.class);
+
+                    String[] splited = clickedDate.split("-");
+
+                    System.out.println(clickedDate);
+                    for (String s : splited) {
+                        System.out.println(s);
+                    }
+
+                    intent.putExtra("DATE", Integer.valueOf(splited[2]));
+                    intent.putExtra("MONTH", Integer.valueOf(splited[1]));
+                    intent.putExtra("YEAR", Integer.valueOf(splited[0]));
+
+                    intent.removeExtra("STOCKNAME");
+                    intent.removeExtra("FLAG");
+
+                    System.out.println("여기 company name : " + companyName);
+
+                    intent.putExtra("STOCKNAME", companyName);
+                    intent.putExtra("FLAG", true);
+
+                    startActivity(intent);
+                }
             }
         });
 
@@ -205,6 +232,7 @@ public class GalleryFragment extends Fragment implements View.OnClickListener  {
         }
 
         companyName = com;
+        System.out.println("companyName : " + companyName);
 
         class InsertRunnable implements Runnable {
             @Override
@@ -213,8 +241,6 @@ public class GalleryFragment extends Fragment implements View.OnClickListener  {
                     if(companyCode == null) {
                         companyCode = CompanyDataDB.getInstance(getActivity()).companyDao().getCompanyCode(companyName);
                     }
-
-
 
                     System.out.println(companyCode);
                 } catch (Exception e) {
@@ -271,10 +297,6 @@ public class GalleryFragment extends Fragment implements View.OnClickListener  {
                             String content = contentDoc.select("#news_read").get(0).text().substring(0, 30);
                             String date = cellList.select(".date").text();
 
-                            // Log.d("테스트 확인 뉴스 companyCode ", companyCode);
-                            // Log.d("테스트 확인 뉴스 title ", title);
-                            // Log.d("테스트 확인 뉴스 newUrl ", newUrl);
-                            // Log.d("테스트 확인 뉴스 content ", content);
                             Log.d("테스트 확인 뉴스 date ", date);
 
                             NewsItem item = new NewsItem(companyCode, title, content, newUrl, date);
@@ -385,7 +407,6 @@ public class GalleryFragment extends Fragment implements View.OnClickListener  {
                         // 회사 명 가져오기
                         String url2 = "https://finance.naver.com/item/sise.nhn?code=" + companyCode;
                         Document title = Jsoup.connect(url2).get();
-                        companyName = title.select(".wrap_company").get(0).text().split(" ")[0];
 
                         // set data
                         chart.setData(data);
@@ -406,6 +427,7 @@ public class GalleryFragment extends Fragment implements View.OnClickListener  {
                                         System.out.println("dateTimeFormat.format(timeMilliseconds)" + dateTimeFormat.format(timeMilliseconds));
 
                                         Log.d("Entry selected", e.toString());
+                                        clickedDate = dateTimeFormat.format(timeMilliseconds);
                                         System.out.println("date : " + dateTimeFormat.format(timeMilliseconds) + " , Stock Value : " + (int)e.getY());
                                     }
 
