@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/Background"
     tools:context=".ui.setting.settingFragment">
 
     <TimePicker
@@ -20,7 +20,7 @@
         app:layout_constraintVertical_bias="0.499" />
 
     <Switch
-        android:id="@+id/switch1"
+        android:id="@+id/swtNightMode"
         android:layout_width="340dp"
         android:layout_height="60dp"
         android:layout_alignParentRight="true"
@@ -38,8 +38,8 @@
         android:layout_height="60dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="버전  :       0.01A"
-        app:layout_constraintBottom_toBottomOf="@+id/switch1"
+        android:text="버전 : 0.02A"
+        app:layout_constraintBottom_toBottomOf="@+id/swtNightMode"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.418"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,7 +57,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.092"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switch1"
+        app:layout_constraintTop_toBottomOf="@+id/swtNightMode"
         app:layout_constraintVertical_bias="0.287" />
 
     <Button
@@ -70,7 +70,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toEndOf="@+id/tp_timepicker"
-        app:layout_constraintTop_toBottomOf="@+id/switch1"
+        app:layout_constraintTop_toBottomOf="@+id/swtNightMode"
         app:layout_constraintVertical_bias="0.189" />
 
     <Button
@@ -82,7 +82,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switch1"
+        app:layout_constraintTop_toBottomOf="@+id/swtNightMode"
         app:layout_constraintVertical_bias="0.327" />
 
     <TextView
@@ -105,25 +105,9 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/tp_timepicker"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.728"
         app:layout_constraintStart_toStartOf="parent"
-
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Switch
-        android:id="@+id/swtNightMode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Switch"
-        app:layout_constraintBottom_toTopOf="@+id/text_setting"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-        app:layout_constraintTop_toBottomOf="@+id/switch1"
-    
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.936" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

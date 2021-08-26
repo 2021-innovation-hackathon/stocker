@@ -2,9 +2,6 @@ package com.Hackathon.ui.setting;
 
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +11,6 @@ import android.widget.DatePicker;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Button;
 import android.widget.Toast;
 import android.content.Context;
 import android.content.Intent;
@@ -57,8 +53,17 @@ public class settingFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-      
-      if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+
+        this.calendar = Calendar.getInstance();
+        // 현재 날짜 표시
+        displayDate(view);
+
+        this.timePicker = (TimePicker)view.findViewById(R.id.tp_timepicker);
+
+        view.findViewById(R.id.Calendar).setOnClickListener(mClickListener);
+        view.findViewById(R.id.AddAlarm).setOnClickListener(mClickListener);
+
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             // getActivity().setTheme(R.style.Theme_AppCompat_DayNight);
             ThemeUtil.applyTheme(getContext(), 1);
         } else {
@@ -68,17 +73,14 @@ public class settingFragment extends Fragment {
 
         mySwitch = view.findViewById(R.id.swtNightMode);
 
-        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             mySwitch.setChecked(true);
         }
 
-        mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-        {
+        mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-            {
-                if (isChecked)
-                {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
                     // AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                     ThemeUtil.applyTheme(getContext(), 1);
                     //Objects.requireNonNull(getActivity()).recreate();
@@ -91,21 +93,11 @@ public class settingFragment extends Fragment {
             }
         });
 
-
-        this.calendar = Calendar.getInstance();
-        // 현재 날짜 표시
-        displayDate();
-
-        this.timePicker = (TimePicker) getActivity().findViewById(R.id.tp_timepicker);
-
-
-        getActivity().findViewById(R.id.Calendar).setOnClickListener(mClickListener);
-        getActivity().findViewById(R.id.AddAlarm).setOnClickListener(mClickListener);
     }
 
-    private void displayDate() {
+    private void displayDate(View view) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        ((TextView) getActivity().findViewById(R.id.textView3)).setText(format.format(this.calendar.getTime()));
+        ((TextView)view.findViewById(R.id.textView3)).setText(format.format(this.calendar.getTime()));
     }
 
     /* DatePickerDialog 호출 */
@@ -119,12 +111,13 @@ public class settingFragment extends Fragment {
                 calendar.set(Calendar.DATE, dayOfMonth);
 
                 // 날짜 표시
-                displayDate();
+                displayDate(view);
             }
         }, this.calendar.get(Calendar.YEAR), this.calendar.get(Calendar.MONTH), this.calendar.get(Calendar.DAY_OF_MONTH));
 
         dialog.show();
     }
+
     /* 알람 등록 */
     private void setAlarm() {
         // 알람 시간 설정
@@ -143,7 +136,7 @@ public class settingFragment extends Fragment {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         // 알람 설정
-        AlarmManager alarmManager = (AlarmManager)getActivity().getSystemService(Context.ALARM_SERVICE);
+        AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, this.calendar.getTimeInMillis(), pendingIntent);
 
         // Toast 보여주기 (알람 시간 표시)
@@ -169,11 +162,6 @@ public class settingFragment extends Fragment {
         }
     };
 
-
-
-
-
-
     private void setContentView(int activity_main) {
     }
 
@@ -181,21 +169,19 @@ public class settingFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         context = container.getContext();
-       settingViewModel =
-               new ViewModelProvider(this).get(settingViewModel.class);
+        settingViewModel =
+                new ViewModelProvider(this).get(settingViewModel.class);
 
         binding = FragmentSettingBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-       final TextView textView = binding.textView;
+        final TextView textView = binding.textView;
         settingViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-             textView.setText(s);
-           }
-       });
-
-
+                textView.setText(s);
+            }
+        });
 
         return root;
     }
