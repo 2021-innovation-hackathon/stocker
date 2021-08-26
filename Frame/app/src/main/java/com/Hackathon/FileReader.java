@@ -55,8 +55,6 @@ public class FileReader {
                 }
 
                 String[] company = str.split("\t");
-                System.out.println(company[0]);
-                System.out.println(company[1]);
 
                 data.put(company[0], company[1]);
             }
