@@ -1,4 +1,4 @@
-(메인베너 만들고 추가)
+![main_banner](C:\Users\Yun\stocker\img)
 
 Stalker는 일기장을 기반으로 한 간편한 주식기록장 어플리케이션 입니다.
 
