@@ -19,7 +19,7 @@
             android:layout_marginLeft="20dp"
             android:text="제목"
             android:textSize="10sp"
-            android:textColor="#000"/>
+            android:textColor="?android:textColor"/>
 
         <!--뉴스 컨텐츠-->
         <TextView
@@ -29,7 +29,7 @@
             android:layout_marginLeft="100dp"
             android:text="뉴스 컨텐츠"
             android:textSize="8sp"
-            android:textColor="#444"
+            android:textColor="?android:textColor"
             android:maxLines="1"/>
 
     </LinearLayout>

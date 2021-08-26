@@ -127,9 +127,6 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
     {
         if(!dayText.equals(""))
         {
-//            String message = "dayText : " + dayText + ", Selected Date : " + monthYearFromDate(selectedDate);
-//            Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-
             Intent intent = new Intent(getContext(), Home_addMemo.class);
 
             intent.putExtra("DATE",dayText);

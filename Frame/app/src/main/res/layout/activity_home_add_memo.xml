@@ -21,7 +21,7 @@
             android:layout_weight="1"
             android:adjustViewBounds="true"
             android:scaleType="centerInside"
-            android:background="@color/white"
+            android:background="?android:attr/colorBackground"
             android:onClick="backTohome"
             app:srcCompat="@drawable/left_arrow" />
 

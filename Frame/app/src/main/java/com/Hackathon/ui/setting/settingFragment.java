@@ -3,6 +3,7 @@ package com.Hackathon.ui.setting;
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,9 +42,7 @@ public class settingFragment extends Fragment {
     private settingViewModel settingViewModel;
     private FragmentSettingBinding binding;
 
-
     private Switch mySwitch;
-
 
     //알람시간
     private Calendar calendar;
@@ -58,16 +57,17 @@ public class settingFragment extends Fragment {
         // 현재 날짜 표시
         displayDate(view);
 
+        view.findViewById(R.id.Calendar).setOnClickListener(mClickListener);
+        view.findViewById(R.id.Calendar).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        view.findViewById(R.id.AddAlarm).setOnClickListener(mClickListener);
+        view.findViewById(R.id.AddAlarm).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+
         this.timePicker = (TimePicker)view.findViewById(R.id.tp_timepicker);
 
-        view.findViewById(R.id.Calendar).setOnClickListener(mClickListener);
-        view.findViewById(R.id.AddAlarm).setOnClickListener(mClickListener);
 
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-            // getActivity().setTheme(R.style.Theme_AppCompat_DayNight);
             ThemeUtil.applyTheme(getContext(), 1);
         } else {
-            // getActivity().setTheme(R.style.Theme_AppCompat);
             ThemeUtil.applyTheme(getContext(), 0);
         }
 
@@ -81,13 +81,8 @@ public class settingFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    // AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                     ThemeUtil.applyTheme(getContext(), 1);
-                    //Objects.requireNonNull(getActivity()).recreate();
-                    //getFragmentManager().beginTransaction().replace(R.id.fragmentContainer, new SettingsFragment()).commit(); //<== both these two lines not working
-
                 } else {
-                    // AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                     ThemeUtil.applyTheme(getContext(), 0);
                 }
             }

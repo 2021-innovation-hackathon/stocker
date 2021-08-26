@@ -8,6 +8,7 @@ class DiaryItem {
     public String stockName;
     public int price;
     public int quantity;
+    public String date;
     public String categoryName;
     public String categoryColor;
 }
