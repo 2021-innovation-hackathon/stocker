@@ -11,7 +11,7 @@
         android:id="@+id/cellDayText"
         android:text="1"
         android:textSize="20sp"
-        android:textColor="@color/black"
+        android:textColor="?android:textColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"

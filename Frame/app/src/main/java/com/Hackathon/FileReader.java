@@ -1,11 +1,27 @@
 package com.Hackathon;
 
-import com.opencsv.CSVReader;
+import android.content.Context;
+import android.view.View;
 
+import androidx.room.Room;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.HashMap;
 import java.util.Map;
 
+import jxl.Sheet;
+import jxl.Workbook;
+import jxl.read.biff.BiffException;
+
 public class FileReader {
-    Map<String, String> data;
+    private static Map<String, String> data;
+
+    public Map<String, String> getData() {
+        return data;
+    }
 
     public String getData(String key) {
         return data.get(key);
@@ -22,11 +38,29 @@ public class FileReader {
     }
 
     private static FileReader instance = null;
-    public static synchronized FileReader getInstance(){
+    public static synchronized FileReader getInstance(Context context) throws IOException, BiffException {
         if(null == instance){
-            // csv 파일 가져오기
-            String path = System.getProperty("user.dir");
-            System.out.println("Working Directory = " + path);
+            data = new HashMap<>();
+
+            // 파일 가져오기 위한 세팅
+            InputStreamReader isr = new InputStreamReader(context.getResources().getAssets().open("kospi_data.txt"), "EUC-KR");
+            BufferedReader b = new BufferedReader(isr);
+
+            String str = "";
+            while(str != null) {
+                str = b.readLine();
+
+                if(str == null) {
+                    break;
+                }
+
+                String[] company = str.split("\t");
+                System.out.println(company[0]);
+                System.out.println(company[1]);
+
+                data.put(company[0], company[1]);
+            }
+
             instance = new FileReader();
         }
         return instance;
