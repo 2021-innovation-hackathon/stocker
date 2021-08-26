@@ -1,5 +1,6 @@
 package com.Hackathon.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +28,7 @@ import java.util.ArrayList;
 
 public class HomeFragment extends Fragment implements CalendarAdapter.OnItemListener{
 
-    private FragmentHomeBinding binding;
+    protected FragmentHomeBinding binding;
     private TextView monthYearText;
     private RecyclerView calendarRecyclerView;
     private LocalDate selectedDate;
@@ -121,25 +122,19 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
         return date.format(formatter);
     }
 
-//    public void previousMonthAction(View view)
-//    {
-//        selectedDate = selectedDate.minusMonths(1);
-//        setMonthView();
-//    }
-//
-//    public void nextMonthAction(View view)
-//    {
-//        selectedDate = selectedDate.plusMonths(1);
-//        setMonthView();
-//    }
-
     @Override
     public void onItemClick(int position, String dayText)
     {
         if(!dayText.equals(""))
         {
-            String message = "Selected Date " + dayText + " " + monthYearFromDate(selectedDate);
-            Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+//            String message = "dayText : " + dayText + ", Selected Date : " + monthYearFromDate(selectedDate);
+//            Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+
+            Intent intent = new Intent(getContext(), Home_addMemo.class);
+
+            intent.putExtra("DATE",dayText);
+            intent.putExtra("selected",monthYearFromDate(selectedDate));
+            startActivity(intent);
         }
     }
 }

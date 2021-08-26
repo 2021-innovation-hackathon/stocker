@@ -9,11 +9,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Frame">
+
+        <activity
+            android:name=".ui.home.Home_addMemo"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.Frame">
+        </activity>
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Frame.NoActionBar">
+            android:theme="@style/Theme.Frame">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

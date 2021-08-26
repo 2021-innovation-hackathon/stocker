@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:textAlignment="center"
+    tools:context=".ui.home.Home_addMemo">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:background="@color/white"
+            android:onClick="backTohome"
+            app:srcCompat="@drawable/left_arrow" />
+
+
+        <TextView
+            android:id="@+id/editTextTextPersonName"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:ems="50"
+            android:gravity="center"
+            android:text="2021년 8월"
+            android:textSize="30sp" />
+
+        <ImageButton
+            android:id="@+id/imageButton2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/plus"
+            android:onClick="addRecord"
+            android:background="@color/white"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/dd"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Date"
+        android:gravity="center"
+        android:textSize="35sp"/>
+
+    <TextView
+        android:id="@+id/ym"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="yearmonth"
+        android:gravity="center"
+        android:textSize="35sp"/>
+
+</LinearLayout>
