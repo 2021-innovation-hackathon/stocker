@@ -12,22 +12,27 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.Hackathon.R;
+import com.Hackathon.addDataDialog;
 
 public class Home_addMemo extends AppCompatActivity {
-
+    int date,month,year;
+    String DateCode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_add_memo);
 
+        DateCode = Integer.toString(year)+Integer.toString(month)+Integer.toString(date) ;
         Intent intent = getIntent();
-        String date = intent.getStringExtra("DATE");
-        String yearmonth = intent.getStringExtra("selected");
+        date = intent.getIntExtra("DATE",0);
+        month = intent.getIntExtra("MONTH",0);
+        year = intent.getIntExtra("YEAR",0);
 
-        TextView a = (TextView)findViewById(R.id.dd);
-        a.setText(date);
-        TextView b = (TextView)findViewById(R.id.ym);
-        b.setText(yearmonth);
+        TextView target = findViewById(R.id.DateText);
+        target.setText(Integer.toString(year)+"년 "+Integer.toString(month)+" 월 " +Integer.toString(date) + " 일");
+
+
+
 
     }
 
@@ -36,7 +41,9 @@ public class Home_addMemo extends AppCompatActivity {
     }
 
     public void addRecord(View view){
-        Toast.makeText(this,"addMemo executed.",Toast.LENGTH_LONG).show();
+//        TextView ddd = (TextView)findViewById(R.id.fixedDate);
+//        ddd.setText(DateCode);
+        new addDataDialog(Home_addMemo.this).show();
     }
 //    @Override
 //    public boolean onCreateOptionsMenu(Menu menu) {

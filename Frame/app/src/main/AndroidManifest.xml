@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.Hackathon">
 
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,24 +11,45 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Frame">
-
         <activity
             android:name=".ui.home.Home_addMemo"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Frame">
+            android:theme="@style/Theme.Frame.NoActionBar">
         </activity>
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Frame">
+            android:theme="@style/Theme.Frame.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+        <activity
+            android:name=".AlarmActivity"
+            />
+
+        <receiver
+            android:name=".Alarm"
+            android:enabled="true"
+            android:exported="false"
+            />
+
+        <service
+            android:name=".AlarmService"
+            android:enabled="true"
+            />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 </manifest>

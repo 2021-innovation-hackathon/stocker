@@ -32,6 +32,9 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
     private TextView monthYearText;
     private RecyclerView calendarRecyclerView;
     private LocalDate selectedDate;
+    private int s_Year;
+    private int s_Month;
+    private int s_Day;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -83,8 +86,12 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
     private void setMonthView()
     {
         View root = binding.getRoot();
-        monthYearText.setText(monthYearFromDate(selectedDate));
+
         ArrayList<String> daysInMonth = daysInMonthArray(selectedDate);
+        s_Year = selectedDate.getYear();
+        s_Month = selectedDate.getMonthValue();
+//        monthYearText.setText(monthYearFromDate(selectedDate));
+        monthYearText.setText(s_Year+"년  "+s_Month+"월");
 
         CalendarAdapter calendarAdapter = new CalendarAdapter(daysInMonth, this);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(root.getContext(), 7);
@@ -118,7 +125,7 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
 
     private String monthYearFromDate(LocalDate date)
     {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("YYYY MMMM");
         return date.format(formatter);
     }
 
@@ -132,8 +139,9 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
 
             Intent intent = new Intent(getContext(), Home_addMemo.class);
 
-            intent.putExtra("DATE",dayText);
-            intent.putExtra("selected",monthYearFromDate(selectedDate));
+            intent.putExtra("DATE",Integer.valueOf(dayText));
+            intent.putExtra("MONTH",s_Month);
+            intent.putExtra("YEAR",s_Year);
             startActivity(intent);
         }
     }

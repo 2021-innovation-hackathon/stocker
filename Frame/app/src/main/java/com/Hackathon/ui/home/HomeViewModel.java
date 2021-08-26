@@ -13,7 +13,6 @@ public class HomeViewModel extends ViewModel {
         mText.setValue("This is calender fragment");
     }
 
-
     public LiveData<String> getText() {
         return mText;
     }

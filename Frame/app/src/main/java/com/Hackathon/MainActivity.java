@@ -13,11 +13,13 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import com.Hackathon.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
+    public AppDatabase db;
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
 
@@ -40,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        db = Room.databaseBuilder(this,AppDatabase.class, "diaryitem-db").allowMainThreadQueries().build();
     }
 
     @Override

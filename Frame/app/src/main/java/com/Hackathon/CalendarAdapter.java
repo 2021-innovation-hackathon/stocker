@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class CalendarAdapter extends RecyclerView.Adapter<com.Hackathon.CalendarViewHolder>
+public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
 {
     private final ArrayList<String> daysOfMonth;
     private final OnItemListener onItemListener;
@@ -22,17 +22,17 @@ public class CalendarAdapter extends RecyclerView.Adapter<com.Hackathon.Calendar
 
     @NonNull
     @Override
-    public com.Hackathon.CalendarViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+    public CalendarViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.calendar_cell, parent, false);
         ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
         layoutParams.height = (int) (parent.getHeight() * 0.166666666);
-        return new com.Hackathon.CalendarViewHolder(view, onItemListener);
+        return new CalendarViewHolder(view, onItemListener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull com.Hackathon.CalendarViewHolder holder, int position)
+    public void onBindViewHolder(@NonNull CalendarViewHolder holder, int position)
     {
         holder.dayOfMonth.setText(daysOfMonth.get(position));
     }
