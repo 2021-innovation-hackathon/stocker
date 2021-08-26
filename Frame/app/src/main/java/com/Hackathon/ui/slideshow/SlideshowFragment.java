@@ -36,13 +36,13 @@ public class  SlideshowFragment extends Fragment {
     private FragmentSlideshowBinding binding;
 
     PieChart pieChart;
-    List<DiaryItem> list = null;
+    List<DiaryItem> list;
 
-    private void showPieChart(){
+    private void showPieChart() throws InterruptedException {
         ArrayList<PieEntry> pieEntries = new ArrayList<>();
         String label = "type";
 
-        new Thread(
+        Thread t = new Thread(
                 new Runnable() {
                     @Override
                     public void run() {
@@ -55,7 +55,9 @@ public class  SlideshowFragment extends Fragment {
                         }
                     }
                 }
-        ).start();
+        );
+        t.start();
+        t.join();
 
         //initializing data
         Map<String, Integer> typeAmountMap = new HashMap<>();
@@ -68,9 +70,9 @@ public class  SlideshowFragment extends Fragment {
             for(DiaryItem d : list) {
                 Integer i = typeAmountMap.get(d.stockName);
                 if(i != null) {
-                    typeAmountMap.replace(d.categoryName, d.price * d.quantity + i);
+                    typeAmountMap.replace(d.stockName, d.price * d.quantity + i);
                 } else {
-                    typeAmountMap.put(d.categoryName, d.price * d.quantity);
+                    typeAmountMap.put(d.stockName, d.price * d.quantity);
                     colors.add(Color.parseColor(d.categoryColor));
                 }
             }
@@ -101,7 +103,11 @@ public class  SlideshowFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         pieChart = (PieChart)getActivity().findViewById(R.id.pieChart_view);
-        showPieChart();
+        try {
+            showPieChart();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
