@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -28,7 +27,9 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -42,7 +43,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-public class GalleryFragment extends Fragment implements View.OnClickListener {
+public class GalleryFragment extends Fragment implements View.OnClickListener  {
     // 입력받을 것
     private String companyCode;
     private String companyName;
@@ -176,6 +177,29 @@ public class GalleryFragment extends Fragment implements View.OnClickListener {
                             chart.setVisibleXRangeMaximum(6);
                             chart.getDescription().setText(companyName + "의 주식");
                             chart.moveViewToX(0);
+
+                            chart.setOnChartValueSelectedListener(
+                                    new OnChartValueSelectedListener() {
+                                        @Override
+                                        public void onValueSelected(Entry e, Highlight h) {
+                                            // long emissionsMilliSince1970Time = TimeUnit.DAYS.toMillis(Long.parseLong(xLabel.get((int)value)));
+                                            long emissionsMilliSince1970Time = Long.parseLong(xLabel.get((int)e.getX()));
+
+                                            // Show time in local version
+                                            Date timeMilliseconds = new Date(emissionsMilliSince1970Time);
+                                            SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd");
+                                            System.out.println("dateTimeFormat.format(timeMilliseconds)" + dateTimeFormat.format(timeMilliseconds));
+
+                                            Log.d("Entry selected", e.toString());
+                                            System.out.println("date : " + dateTimeFormat.format(timeMilliseconds) + " , Stock Value : " + (int)e.getY());
+                                        }
+
+                                        @Override
+                                        public void onNothingSelected() {
+                                            Log.d("Nothing selected", "Nothing selected.");
+                                        }
+                                    }
+                            );
 
                             XAxis xAxis = chart.getXAxis();
                             xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -343,10 +367,10 @@ public class GalleryFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        EditText text = (EditText)getActivity().findViewById(R.id.editNewsId);
+        EditText text = (EditText) getActivity().findViewById(R.id.editNewsId);
 
         String com = text.getText().toString();
-        if(com.length() != 6) {
+        if (com.length() != 6) {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setTitle("양식이 잘못되었습니다.");
             builder.setNegativeButton("돌아가기", null);

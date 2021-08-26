@@ -13,7 +13,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.Hackathon.databinding.FragmentSettingBinding;
-import com.Hackathon.databinding.FragmentSlideshowBinding;
 
 public class settingFragment extends Fragment {
 
@@ -35,6 +34,7 @@ public class settingFragment extends Fragment {
                 textView.setText(s);
             }
         });
+
         return root;
     }
 
