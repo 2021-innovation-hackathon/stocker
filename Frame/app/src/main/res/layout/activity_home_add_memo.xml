@@ -21,13 +21,13 @@
             android:layout_weight="1"
             android:adjustViewBounds="true"
             android:scaleType="centerInside"
-            android:background="?android:attr/colorBackground"
+            android:background="@color/white"
             android:onClick="backTohome"
             app:srcCompat="@drawable/left_arrow" />
 
 
         <TextView
-            android:id="@+id/editTextTextPersonName"
+            android:id="@+id/DateText"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
@@ -50,19 +50,9 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/dd"
+        android:id="@+id/wanted"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="Date"
-        android:gravity="center"
-        android:textSize="35sp"/>
-
-    <TextView
-        android:id="@+id/ym"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="yearmonth"
-        android:gravity="center"
-        android:textSize="35sp"/>
+        android:layout_height="501dp"
+        android:text="TextView" />
 
 </LinearLayout>

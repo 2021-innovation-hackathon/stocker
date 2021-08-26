@@ -130,11 +130,16 @@ public class GalleryFragment extends Fragment implements View.OnClickListener  {
         btn.setOnClickListener(this);
         btn.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
 
-        TextView textView = (TextView)getActivity().findViewById(R.id.txtNewsId);
+        TextView textView = (TextView)getActivity().findViewById(R.id.txtDiaryRedirect);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // 여기서 일기 데이터를 조회
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("아직 만드는 중이에요..");
+                builder.setNegativeButton("돌아가기", null);
+                builder.create().show();
+                return;
             }
         });
 
@@ -208,6 +213,9 @@ public class GalleryFragment extends Fragment implements View.OnClickListener  {
                     if(companyCode == null) {
                         companyCode = CompanyDataDB.getInstance(getActivity()).companyDao().getCompanyCode(companyName);
                     }
+
+
+
                     System.out.println(companyCode);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -467,6 +475,19 @@ public class GalleryFragment extends Fragment implements View.OnClickListener  {
         try {
             t1.start();
             t1.join();
+
+            if(companyCode == null) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setTitle("없는 회사입니다..");
+                        builder.setNegativeButton("돌아가기", null);
+                        builder.create().show();
+                    }
+                });
+                return;
+            }
 
             t2.start();
             t2.join();
