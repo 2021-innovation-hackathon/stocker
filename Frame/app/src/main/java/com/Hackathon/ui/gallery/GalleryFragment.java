@@ -11,11 +11,13 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.Hackathon.FileReader;
 import com.Hackathon.NewsAdapter;
 import com.Hackathon.NewsItem;
 import com.Hackathon.R;
@@ -356,6 +358,12 @@ public class GalleryFragment extends Fragment implements View.OnClickListener  {
         binding = FragmentGalleryBinding.inflate(inflater, container, false);
         View root = binding.getRoot ();
 
+        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            getActivity().setTheme(R.style.Theme_AppCompat_DayNight);
+        } else {
+            getActivity().setTheme(R.style.Theme_AppCompat);
+        }
+
         return root;
     }
 
@@ -368,6 +376,7 @@ public class GalleryFragment extends Fragment implements View.OnClickListener  {
     @Override
     public void onClick(View view) {
         EditText text = (EditText) getActivity().findViewById(R.id.editNewsId);
+        FileReader.getInstance();
 
         String com = text.getText().toString();
         if (com.length() != 6) {
