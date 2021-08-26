@@ -1,6 +1,8 @@
-<img src="https://user-images.githubusercontent.com/88668004/130888660-c8cb263a-2b23-45c7-993c-ab001ebb52d5.PNG"  width="700" height="370">
+<center><img src="https://user-images.githubusercontent.com/88668004/130889102-adf2f7ab-5f3a-4348-82e1-906137336299.PNG"  width="700" height="370"></center>
 
-Stalker는 일기장을 기반으로 한 간편한 주식기록장 어플리케이션 입니다.
+
+
+<center>Stalker는 일기장을 기반으로 한 간편한 주식기록장 어플리케이션 입니다.</center>
 
 
 
