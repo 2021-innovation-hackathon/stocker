@@ -1,4 +1,4 @@
-<center><img src="https://user-images.githubusercontent.com/88668004/130889102-adf2f7ab-5f3a-4348-82e1-906137336299.PNG"  width="700" height="370"></center>
+![배너디자인](https://user-images.githubusercontent.com/88668004/131066779-31415095-c371-4ca7-8f85-e0d66ffa2f2e.PNG)
 
 
 
@@ -62,3 +62,4 @@
 > 투자한 종목을 직접만든 카테고리로 정리해서 볼 수 있습니다.
 
 (투자현황 완성 이미지)<br>
+![앱내이미지](https://user-images.githubusercontent.com/88668004/131066826-22cbec84-0f57-4e0c-a863-73a95fe05891.PNG)
