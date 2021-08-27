@@ -47,7 +47,6 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
             } else if (today.getDayOfWeek().getValue() == 7) {
                 holder.dayOfMonth.setTextColor(Color.parseColor("#dd3333"));
             }
-
         }
     }
 
