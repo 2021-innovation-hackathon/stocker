@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string-array name="buysell">
-        <item>매도</item>
-        <item>매수</item>
-    </string-array>
-
-</resources>

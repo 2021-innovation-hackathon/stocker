@@ -13,6 +13,10 @@ public interface DiaryItemDao {
     @Query("SELECT * FROM DiaryItem")
     List<DiaryItem> getAll();
 
+
+    @Query("SELECT * FROM DiaryItem WHERE DiaryItem.stockName = :companyName AND DiaryItem.date = :date")
+    List<DiaryItem> getSelectedData(String companyName, String date);
+
     @Insert
     void insert(DiaryItem diaryItem);
 
@@ -22,3 +26,4 @@ public interface DiaryItemDao {
     @Delete
     void delete(DiaryItem diaryItem);
 }
+

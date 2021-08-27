@@ -90,6 +90,9 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
         ArrayList<String> daysInMonth = daysInMonthArray(selectedDate);
         s_Year = selectedDate.getYear();
         s_Month = selectedDate.getMonthValue();
+
+        DateSingletonParse.yearValue = s_Year;
+        DateSingletonParse.monthValue = s_Month;
 //        monthYearText.setText(monthYearFromDate(selectedDate));
         monthYearText.setText(s_Year+"년  "+s_Month+"월");
 

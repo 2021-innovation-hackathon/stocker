@@ -1,10 +1,11 @@
 package com.Hackathon;
 
 import android.os.Bundle;
-import android.view.View;
 import android.view.Menu;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Switch;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.navigation.NavController;
@@ -13,15 +14,18 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 
 import com.Hackathon.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
-    public AppDatabase db;
+    private TextView tv;
+    private Switch aSwitch;
+    private Button Bt;
+
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        db = Room.databaseBuilder(this,AppDatabase.class, "diaryitem-db").allowMainThreadQueries().build();
     }
 
     @Override

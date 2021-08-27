@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f1f3f5"
     android:gravity="center|top"
     android:orientation="vertical"
     tools:context=".ui.home.HomeFragment">
@@ -18,7 +17,7 @@
             android:id="@+id/tv_prev_month"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
+            android:textColor="?android:textColor"
             android:text="  PREV  "
             android:textSize="15sp"/>
 
@@ -28,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
-            android:textColor="@color/black"
+            android:textColor="?android:textColor"
             android:text="2021  08"
             android:textSize="20sp" />
 
@@ -36,7 +35,7 @@
             android:id="@+id/tv_next_month"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
+            android:textColor="?android:textColor"
             android:text="  NEXT  "
             android:textSize="15sp" />
     </LinearLayout>
@@ -44,13 +43,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffffff"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:background="#e0e7ee"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -130,6 +127,7 @@
             android:id="@+id/calendarRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="400dp"
+            android:textColor="?android:textColor"
             tools:context=".activity.CalendarActivity">
 
         </androidx.recyclerview.widget.RecyclerView>
@@ -152,14 +150,13 @@
 
             <EditText
                 android:id="@+id/memo_value"
-                android:textColor="@color/black"
+                android:textColor="?android:textColor"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="내용을 입력하세요"
                 android:gravity="top"
                 android:padding="5dp"
-                android:textSize="20sp"
-                android:background="@drawable/border"/>
+                android:textSize="20sp"/>
         </LinearLayout>
 
 
@@ -174,6 +171,17 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:textAlignment="center"
+
         android:text=""
-        android:textSize="20sp" />
+   
+        android:textSize="20sp"
+         />
+
+    <CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="30dp"
+        tools:layout_editor_absoluteY="61dp" />
 </LinearLayout>
+

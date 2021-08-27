@@ -1,5 +1,6 @@
 package com.Hackathon;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,6 +8,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.Hackathon.ui.home.DateSingletonParse;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
@@ -34,7 +38,17 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
     @Override
     public void onBindViewHolder(@NonNull CalendarViewHolder holder, int position)
     {
-        holder.dayOfMonth.setText(daysOfMonth.get(position));
+        String i = daysOfMonth.get(position);
+        holder.dayOfMonth.setText(i);
+        if (i != "") {
+            LocalDate today = LocalDate.of(DateSingletonParse.yearValue, DateSingletonParse.monthValue, Integer.valueOf(i));
+            if (today.getDayOfWeek().getValue() == 6) {
+                holder.dayOfMonth.setTextColor(Color.parseColor("#1e73be"));
+            } else if (today.getDayOfWeek().getValue() == 7) {
+                holder.dayOfMonth.setTextColor(Color.parseColor("#dd3333"));
+            }
+
+        }
     }
 
     @Override

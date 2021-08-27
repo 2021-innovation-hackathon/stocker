@@ -41,10 +41,11 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.3.5'
     testImplementation 'junit:junit:4.+'
 
-
-
     // jsoup
     implementation 'org.jsoup:jsoup:1.11.3'
+
+    // jexcelapi
+    implementation 'net.sourceforge.jexcelapi:jxl:2.6.12'
 
     // recyclerview
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
